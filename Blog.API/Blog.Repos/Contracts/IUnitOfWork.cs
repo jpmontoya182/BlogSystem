@@ -7,6 +7,8 @@ namespace Blog.Repos.Contracts
 {
     public interface IUnitOfWork : IDisposable
     {
+        ProfilesRepository ProfilesRepository { get; }
+
         Task Commit();
     }
 }

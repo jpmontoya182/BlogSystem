@@ -11,20 +11,25 @@ namespace Blog.Repos
     {
         private readonly BlogBDContext _DbContext;
         public CommentsRepository CommentsRepository { get; private set; }
-
+        public PostsRepository PostsRepository { get; private set; }
+        public ProfilesRepository ProfilesRepository { get; private set; }
+        public UsersRepository UsersRepository { get; private set; }
         public UnitofWork(BlogBDContext context)
         {
             _DbContext = context;
             this.CommentsRepository = new CommentsRepository(this._DbContext);
+            this.PostsRepository = new PostsRepository(this._DbContext);
+            this.ProfilesRepository = new ProfilesRepository(this._DbContext);
+            this.UsersRepository = new UsersRepository(this._DbContext);
         }
         public async Task Commit()
         {
-            await _DbContext.SaveChangesAsync();
+            await this._DbContext.SaveChangesAsync();
         }
 
         public void Dispose()
         {
-            _DbContext.Dispose();
+            this._DbContext.Dispose();
         }
     }
 }
