@@ -20,10 +20,7 @@ namespace Blog.Controllers.Controllers
             _setup = setup;
             _userBusiness = new UserBusiness(_setup.Value);
         }
-        // select -> get
-        // insert -> post
-        // update -> put
-        // delete -> DELETE
+
 
         [HttpGet]
         [Route("getAllComments")]
@@ -79,14 +76,12 @@ namespace Blog.Controllers.Controllers
             {
                 result.Add("token", _userBusiness.Login(login));
                 return result;
-                
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
-
         }
 
 

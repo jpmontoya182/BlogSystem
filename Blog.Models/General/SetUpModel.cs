@@ -8,5 +8,7 @@ namespace Blog.Models
     {
         public string JwtKey { get; set; }
         public string JwtIssuer { get; set; }
+        public string StringConnectionWriter { get; set; }
+        public string StringConnectionReader { get; set; }
     }
 }
