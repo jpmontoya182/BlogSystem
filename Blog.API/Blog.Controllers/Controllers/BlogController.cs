@@ -13,7 +13,7 @@ using Microsoft.Extensions.Options;
 
 namespace Blog.Controllers.Controllers
 {
-    [Route("api/blog")]
+    [Route("api/Users")]
     [ApiController]
     public class BlogController : ControllerBase
     {
@@ -33,253 +33,13 @@ namespace Blog.Controllers.Controllers
 
         #endregion
 
-        #region Comments 
-
-        [HttpGet]
-        [Route("GetAllComments")]
-        [AllowAnonymous]
-        public IEnumerable<Comments> GetAllComments()
-        {
-            List<Comments> result = new List<Comments>();
-            try
-            {
-                result = _unitOfWork.CommentsRepository.GetAllComments().ToList();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return result;
-        }
-
-        [HttpGet]
-        [Route("GetCommentById/{CommentId}")]
-        [AllowAnonymous]
-        public Comments GetCommentById(string CommentId)
-        {
-            try
-            {
-                int id;
-                bool success = Int32.TryParse(CommentId, out id);
-                Comments result = new Comments();
-
-                if (success)
-                {
-                    result = _unitOfWork.CommentsRepository.GetCommentById(id);
-                }
-                return result;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        [HttpPost]
-        [Route("InsertComment/")]
-        public void InsertComment([FromBody] InsertNewComment data)
-        {
-            _unitOfWork.CommentsRepository.InsertComment(data);
-        }
 
 
-        [HttpDelete]
-        [Route("DeleteComment/{CommentId}")]
-        public void DeleteComment(string CommentId)
-        {
-            int id;
-            bool success = Int32.TryParse(CommentId, out id);
-            _unitOfWork.CommentsRepository.DeleteComment(id);
-        }
-
-        #endregion
-
-
-
-
-
-        #region Posts
-        [HttpGet]
-        [Route("GetAllPosts")]
-        [AllowAnonymous]
-        public IEnumerable<Posts> GetAllPosts()
-        {
-            List<Posts> result = new List<Posts>();
-            try
-            {
-                result = _unitOfWork.PostsRepository.GetAllPosts().ToList();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return result;
-        }
-
-        [HttpGet]
-        [Route("GetPostById/{PostId}")]
-        [AllowAnonymous]
-        public Posts GetPostById(string PostId)
-        {
-            Posts result = new Posts();
-            try
-            {
-                int id;
-                bool success = Int32.TryParse(PostId, out id);
-                result = _unitOfWork.PostsRepository.GetPostById(id);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return result;
-        }
-
-        [HttpPost]
-        [Route("InsertPost")]
-        [AllowAnonymous]
-        public void InsertPost([FromBody] InsertNewPosts data)
-        {
-            try
-            {
-                _unitOfWork.PostsRepository.InsertPost(data);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        [HttpPut]
-        [Route("UpdatePost")]
-        [AllowAnonymous]
-        public void UpdatePost([FromBody] UpdatePosts data)
-        {
-            try
-            {
-                _unitOfWork.PostsRepository.UpdatePost(data);
-
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        [HttpDelete]
-        [Route("DeletePostById/{PostId}")]
-        [AllowAnonymous]
-        public void DeletePostById(string PostId)
-        {
-            try
-            {
-                int id;
-                bool success = Int32.TryParse(PostId, out id);
-                if (success)
-                {
-                    _unitOfWork.PostsRepository.DeletePostById(id);
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
-        #endregion
-
-        #region Profiles
-
-        //void UpdateProfile(UpdateProfile entity);
-        //void DeleteProfile(int id);
-
-        [HttpGet]
-        [Route("GetAllProfiles")]
-        [AllowAnonymous]
-        public IEnumerable<Profiles> GetAllProfiles()
-        {
-            return _unitOfWork.ProfilesRepository.GetAllProfiles();
-        }
-
-        [HttpGet]
-        [Route("GetProfileById/{ProfileId}")]
-        [AllowAnonymous]
-        public Profiles GetProfileById(string ProfileId)
-        {
-            Profiles result = new Profiles();
-            try
-            {
-                int id;
-                bool success = Int32.TryParse(ProfileId, out id);
-                result = _unitOfWork.ProfilesRepository.GetProfileById(id);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return result;
-
-        }
-
-        [HttpPost]
-        [Route("InsertPost")]
-        [AllowAnonymous]
-        public void InsertProfile(InsertNewProfile entity)
-        {
-            try
-            {
-                _unitOfWork.ProfilesRepository.InsertProfile(entity);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        [HttpPut]
-        [Route("UpdateProfile")]
-        [AllowAnonymous]
-        public void UpdateProfile(UpdateProfile entity)
-        {
-            try
-            {
-                _unitOfWork.ProfilesRepository.UpdateProfile(entity);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-
-        [HttpDelete]
-        [Route("DeleteProfile/{ProfileId}")]
-        [AllowAnonymous]
-        public void DeleteProfile(string ProfileId)
-        {
-            try
-            {
-                int id;
-                bool success = Int32.TryParse(ProfileId, out id);
-                if (success)
-                {
-                    _unitOfWork.ProfilesRepository.DeleteProfile(id);
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        #endregion
 
         #region Users
 
         [HttpGet]
-        [Route("GetAllUser")]
+        [Route("GetAllUser/")]
         [AllowAnonymous]
         public IEnumerable<Users> GetAllUser()
         {
@@ -306,7 +66,7 @@ namespace Blog.Controllers.Controllers
         }
 
         [HttpPost]
-        [Route("InsertUser")]
+        [Route("InsertUser/")]
         [AllowAnonymous]
         public void InsertUser(InsertNewUser entity)
         {
@@ -321,7 +81,7 @@ namespace Blog.Controllers.Controllers
         }
 
         [HttpPut]
-        [Route("UpdateUser")]
+        [Route("UpdateUser/")]
         [AllowAnonymous]
         public void UpdateUser(UpdateNewUser entity)
         {
@@ -360,7 +120,7 @@ namespace Blog.Controllers.Controllers
         #region security
 
         [HttpPost]
-        [Route("login/")]
+        [Route("Login/")]
         [AllowAnonymous]
         public Dictionary<string, string> Login([FromBody] UserModel login)
         {
