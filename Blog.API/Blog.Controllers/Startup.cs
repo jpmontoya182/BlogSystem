@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Blog.Models;
+using Blog.Models.DataBase;
+using Blog.Repos;
+using Blog.Repos.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,8 +39,9 @@ namespace Blog.Controllers
         {
             // get value from appsettings file
             string originHost = ApplicationSetup.GetSection("Settings:HostFromAllowCORS").Value;
-            string jwtKey = ApplicationSetup.GetSection("Settings:Jwt:Key").Value;
-            string jwtIssuer = ApplicationSetup.GetSection("Settings:Jwt:Issuer").Value;
+            string jwtKey = ApplicationSetup.GetSection("Settings:JwtKey").Value;
+            string jwtIssuer = ApplicationSetup.GetSection("Settings:JwtIssuer").Value;
+            string blogDB = ApplicationSetup.GetSection("Settings:BlogDB").Value;
 
             // basic configuration to CORS            
             services.AddCors(options =>
@@ -71,6 +76,12 @@ namespace Blog.Controllers
             services.AddSwaggerGen();
             services.AddControllers();
             services.Configure<SetUpModel>(ApplicationSetup.GetSection("Settings"));
+            // connection string
+            services.AddDbContext<BlogBDContext>(optionsAction: option => option.UseSqlServer(blogDB));
+            // injected dependences
+            services.AddScoped(serviceType: typeof(IUnitOfWork), implementationType: typeof(UnitofWork));
+            services.AddScoped(serviceType: typeof(IRepository<>), implementationType: typeof(GenericRepository<>));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

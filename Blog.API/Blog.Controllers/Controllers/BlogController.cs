@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Blog.Business;
 using Blog.Models;
+using Blog.Repos;
+using Blog.Repos.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -13,11 +15,14 @@ namespace Blog.Controllers.Controllers
     public class BlogController : ControllerBase
     {
         private readonly IOptions<SetUpModel> _setup;
+        private readonly UnitofWork _unitOfWork;
+
         private UserBusiness _userBusiness = null;
 
-        public BlogController(IOptions<SetUpModel> setup)
+        public BlogController(IOptions<SetUpModel> setup, IUnitOfWork uow)
         {
             _setup = setup;
+            _unitOfWork = uow as UnitofWork;
             _userBusiness = new UserBusiness(_setup.Value);
         }
 
@@ -27,7 +32,15 @@ namespace Blog.Controllers.Controllers
         [AllowAnonymous]
         public void getAllComments()
         {
+            try
+            {
+                var result = _unitOfWork.CommentsRepository.GetAllComments();
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
         }
 
         [HttpGet]

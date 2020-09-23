@@ -3,6 +3,7 @@ using Blog.Repos.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Blog.Repos
@@ -18,29 +19,34 @@ namespace Blog.Repos
             _DbSet = _DbContext.Set<T>();
         }
 
-        public void Add(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _DbSet.ToList();
         }
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            return _DbSet.Find(id);
         }
+
+        public void Add(T entity)
+        {
+            _DbSet.Add(entity);
+        }
+
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _DbSet.Attach(entity);
+            _DbContext.Entry(entity).State = EntityState.Modified;
+
         }
+
+        public void Delete(T entity)
+        {
+            _DbSet.Remove(entity);
+        }
+
+
     }
 }
