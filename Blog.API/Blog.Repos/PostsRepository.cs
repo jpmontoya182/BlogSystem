@@ -37,7 +37,6 @@ namespace Blog.Repos
         {
             return (from p in this._DbContext.Posts
                     join u in this._DbContext.Users on p.UserId equals u.UserId
-                    // join c in this._DbContext.Comments on p.PostId equals c.PostId
                     where p.PostId.Equals(id)
                     select new Posts
                     {
@@ -47,12 +46,8 @@ namespace Blog.Repos
                         CreateDate = p.CreateDate,
                         State = p.State,
                         UserId = p.UserId,
-                        User = u
-                        //,
-                        //Comments = new List<Comments>
-                        //{
-                        //    PostId = c.PostId
-                        //}
+                        User = u,
+                        Comments = (from c in this._DbContext.Comments where c.PostId.Equals(id) select c).ToList()
                     }).FirstOrDefault();
         }
 

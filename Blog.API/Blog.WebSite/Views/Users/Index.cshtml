@@ -4,14 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New User</a>
-</p>
+<h2>All Users</h2>
+<p><a asp-action="Create" class="btn btn-primary">Create New User</a></p>
 <table class="table">
     <thead>
         <tr>
             <th>User Name</th>
-            <th>Password</th>
             <th>Email</th>
             <th>Profile</th>
             <th></th>
@@ -23,9 +21,6 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Username)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Password)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)

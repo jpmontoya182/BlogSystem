@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Blog.Models.Request
 {
-    public class UpdateNewUser : InsertNewUser
+    public class UpdateUser : InsertNewUser
     {
         public int UserId { get; set; }
     }

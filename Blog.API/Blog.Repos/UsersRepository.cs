@@ -59,7 +59,7 @@ namespace Blog.Repos
             this._DbContext.Users.Add(userToSave);
             this._DbContext.SaveChanges();
         }
-        public void UpdateUser(UpdateNewUser entity)
+        public void UpdateUser(UpdateUser entity)
         {
             Users userToUpdate = this._DbContext.Users.Find(entity.UserId);
             userToUpdate.Username = entity.Username;

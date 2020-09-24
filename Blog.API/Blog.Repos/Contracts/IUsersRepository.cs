@@ -11,7 +11,7 @@ namespace Blog.Repos.Contracts
         IEnumerable<Users> GetAllUser();
         Users GetUserById(int id);
         void InsertUser(InsertNewUser entity);
-        void UpdateUser(UpdateNewUser entity);
+        void UpdateUser(UpdateUser entity);
         void DeleteUser(int id);
     }
 }

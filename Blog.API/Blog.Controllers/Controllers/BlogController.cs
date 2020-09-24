@@ -83,7 +83,7 @@ namespace Blog.Controllers.Controllers
         [HttpPut]
         [Route("UpdateUser/")]
         [AllowAnonymous]
-        public void UpdateUser(UpdateNewUser entity)
+        public void UpdateUser(UpdateUser entity)
         {
             try
             {
