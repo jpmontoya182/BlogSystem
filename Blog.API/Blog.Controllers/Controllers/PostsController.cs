@@ -20,13 +20,11 @@ namespace Blog.Controllers.Controllers
     {
         private readonly IOptions<SetUpModel> _setup;
         private readonly UnitofWork _unitOfWork;
-        protected readonly ILogger<PostsController> _logger;
 
-        public PostsController(IOptions<SetUpModel> setup, IUnitOfWork uow, ILogger<PostsController> logger)
+        public PostsController(IOptions<SetUpModel> setup, IUnitOfWork uow)
         {
             _setup = setup;
             _unitOfWork = uow as UnitofWork;
-            _logger = logger;
         }
 
 
