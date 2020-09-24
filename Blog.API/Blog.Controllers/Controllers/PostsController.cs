@@ -8,6 +8,7 @@ using Blog.Repos;
 using Blog.Repos.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 
@@ -19,11 +20,13 @@ namespace Blog.Controllers.Controllers
     {
         private readonly IOptions<SetUpModel> _setup;
         private readonly UnitofWork _unitOfWork;
+        protected readonly ILogger<PostsController> _logger;
 
-        public PostsController(IOptions<SetUpModel> setup, IUnitOfWork uow)
+        public PostsController(IOptions<SetUpModel> setup, IUnitOfWork uow, ILogger<PostsController> logger)
         {
             _setup = setup;
             _unitOfWork = uow as UnitofWork;
+            _logger = logger;
         }
 
 
