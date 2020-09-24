@@ -1,6 +1,7 @@
 ﻿using Blog.Models.DataBase;
 using Blog.Models.Request;
 using Blog.Repos.Contracts;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
 using System.Collections.Generic;
@@ -17,13 +18,44 @@ namespace Blog.Repos
         }
         public IEnumerable<Posts> GetAllPosts()
         {
-            return (from p in this._DbContext.Posts select p);
+            return (from p in this._DbContext.Posts
+                    join u in this._DbContext.Users on p.UserId equals u.UserId
+                    select new Posts
+                    {
+                        PostId = p.PostId,
+                        Title = p.Title,
+                        PostContent = p.PostContent,
+                        CreateDate = p.CreateDate,
+                        State = p.State,
+                        UserId = p.UserId,
+                        User = u
+                    });
+
+
         }
 
 
         public Posts GetPostById(int id)
         {
-            return (from p in this._DbContext.Posts select p).FirstOrDefault();
+            return (from p in this._DbContext.Posts
+                    join u in this._DbContext.Users on p.UserId equals u.UserId
+                    // join c in this._DbContext.Comments on p.PostId equals c.PostId
+                    where p.PostId.Equals(id)
+                    select new Posts
+                    {
+                        PostId = p.PostId,
+                        Title = p.Title,
+                        PostContent = p.PostContent,
+                        CreateDate = p.CreateDate,
+                        State = p.State,
+                        UserId = p.UserId,
+                        User = u
+                        //,
+                        //Comments = new List<Comments>
+                        //{
+                        //    PostId = c.PostId
+                        //}
+                    }).FirstOrDefault();
         }
 
         public void InsertPost(InsertNewPosts entity)

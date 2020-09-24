@@ -8,7 +8,7 @@ namespace Blog.Models.Request
     {
         public string Title { get; set; }
         public string PostContent { get; set; }
-        public int UserId { get; set; }
+        public int UserId { get { return 2; } }
         public bool State { get { return true; } }
         public DateTime CreateDate { get { return DateTime.Now; } }
     }
