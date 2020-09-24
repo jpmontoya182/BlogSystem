@@ -30,6 +30,9 @@
 
 - You must Setup Blog.WebSite as Startup Project
 
+- Also you need configure the connection string on appsettings.json
+  ![ConnectionString](Documentation/ConnectionString.PNG)
+
 ## Blog Application
 
 ### UI
