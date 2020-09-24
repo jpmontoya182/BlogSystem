@@ -15,11 +15,31 @@ namespace Blog.Repos
         }
         public IEnumerable<Users> GetAllUser()
         {
-            return (from u in this._DbContext.Users select u);
+            return (from u in this._DbContext.Users
+                    join p in this._DbContext.Profiles
+                        on u.ProfileId equals p.ProfileId
+                    select new Users
+                    {
+                        Username = u.Username,
+                        Email = u.Email,
+                        Password = u.Password,
+                        UserId = u.UserId,
+                        Profile = p
+                    });
         }
         public Users GetUserById(int id)
         {
-            return (from u in this._DbContext.Users where u.UserId.Equals(id) select u).FirstOrDefault();
+            return (from u in this._DbContext.Users 
+                    join p in this._DbContext.Profiles
+                        on u.ProfileId equals p.ProfileId
+                    where u.UserId.Equals(id) 
+                    select new Users {
+                        Username = u.Username,
+                        Email = u.Email,
+                        Password = u.Password,
+                        UserId = u.UserId,
+                        Profile = p
+                    }).FirstOrDefault();
         }
         public void DeleteUser(int id)
         {

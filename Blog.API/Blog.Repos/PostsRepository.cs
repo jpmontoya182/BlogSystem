@@ -1,9 +1,6 @@
 ﻿using Blog.Models.DataBase;
 using Blog.Models.Request;
 using Blog.Repos.Contracts;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,10 +9,12 @@ namespace Blog.Repos
     public class PostsRepository : GenericRepository<Posts>, IPostsRepository
     {
         private readonly BlogBDContext _DbContext;
+
         public PostsRepository(BlogBDContext context) : base(context)
         {
             _DbContext = context;
         }
+
         public IEnumerable<Posts> GetAllPosts()
         {
             return (from p in this._DbContext.Posts
@@ -33,7 +32,6 @@ namespace Blog.Repos
 
 
         }
-
 
         public Posts GetPostById(int id)
         {
@@ -77,9 +75,9 @@ namespace Blog.Repos
         {
             Posts postToUpdate = this._DbContext.Posts.Find(entity.PostId);
             postToUpdate.PostContent = entity.PostContent;
+            postToUpdate.Title = entity.Title;
             this._DbContext.SaveChanges();
         }
-
 
         public void DeletePostById(int id)
         {
