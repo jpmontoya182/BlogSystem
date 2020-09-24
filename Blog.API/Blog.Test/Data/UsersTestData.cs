@@ -1,7 +1,5 @@
 ﻿using Blog.Models.DataBase;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Blog.Test.Blog.Repos.Data
 {
@@ -17,7 +15,6 @@ namespace Blog.Test.Blog.Repos.Data
                 Password = "1232220",
                 Username = "pepito",
                 ProfileId = 1
-
             });
 
             lst.Add(new Users()
@@ -27,7 +24,6 @@ namespace Blog.Test.Blog.Repos.Data
                 Password = "123tytyty2220",
                 Username = "Naruto",
                 ProfileId = 1
-
             });
 
 
@@ -38,7 +34,6 @@ namespace Blog.Test.Blog.Repos.Data
                 Password = "12rtrt32220",
                 Username = "Pedro",
                 ProfileId = 1
-
             });
 
 
@@ -49,7 +44,6 @@ namespace Blog.Test.Blog.Repos.Data
                 Password = "sdsds",
                 Username = "Juan182",
                 ProfileId = 2
-
             });
 
 

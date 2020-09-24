@@ -1,13 +1,10 @@
 ﻿using Blog.Models.DataBase;
 using Blog.Repos;
 using Blog.Test.Blog.Repos.Data;
-using Microsoft.EntityFrameworkCore;
+using Blog.Test.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Blog.Test.Blog.Repos
 {
@@ -21,6 +18,8 @@ namespace Blog.Test.Blog.Repos
             var demoDataContext = new Mock<BlogBDContext>();
             // get data simulate on UsersTestData.GetUsersData()
             demoDataContext.Setup(x => x.Users).Returns(UnitTestHelpers.GetQueryableMockDbSet<Users>(UsersTestData.GetUsersData().ToList()));
+            demoDataContext.Setup(x => x.Profiles).Returns(UnitTestHelpers.GetQueryableMockDbSet<Profiles>(ProfileTestData.GetProfilesData().ToList()));
+
 
             UsersRepository usersRepository = new UsersRepository(demoDataContext.Object);
             var result = usersRepository.GetAllUser();
@@ -34,6 +33,7 @@ namespace Blog.Test.Blog.Repos
             var demoDataContext = new Mock<BlogBDContext>();
             // get data simulate on UsersTestData.GetUsersData()
             demoDataContext.Setup(x => x.Users).Returns(UnitTestHelpers.GetQueryableMockDbSet<Users>(UsersTestData.GetUsersData().ToList()));
+            demoDataContext.Setup(x => x.Profiles).Returns(UnitTestHelpers.GetQueryableMockDbSet<Profiles>(ProfileTestData.GetProfilesData().ToList()));
 
             UsersRepository usersRepository = new UsersRepository(demoDataContext.Object);
             var result = usersRepository.GetUserById(2);
