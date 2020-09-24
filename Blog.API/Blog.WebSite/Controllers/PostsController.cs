@@ -71,7 +71,6 @@ namespace Blog.WebSite.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

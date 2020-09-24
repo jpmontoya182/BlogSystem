@@ -18,12 +18,10 @@ namespace Blog.Controllers.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly IOptions<SetUpModel> _setup;
         private readonly UnitofWork _unitOfWork;
 
-        public PostsController(IOptions<SetUpModel> setup, IUnitOfWork uow)
+        public PostsController(IUnitOfWork uow)
         {
-            _setup = setup;
             _unitOfWork = uow as UnitofWork;
         }
 
