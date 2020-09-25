@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Blog.Models.DataBase.Comments>
+
+@{ ViewData["Title"] = "Comments";}
+<h2>All Commnents</h2>
+<p><a asp-action="Create" class="btn btn-primary">Create New Comment</a></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Post</th>
+            <th>Comment</th>
+            <th>Create Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Post.Title)</td>
+            <td>@Html.DisplayFor(modelItem => item.ContentComment)</td>
+            <td>@Html.DisplayFor(modelItem => item.CreateDate)</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.CommentId" class="btn btn-info">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.CommentId" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

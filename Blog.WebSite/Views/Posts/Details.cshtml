@@ -1,0 +1,41 @@
+﻿@model Blog.Models.DataBase.Posts
+@{ViewData["Title"] = "Post Details";}
+<div>
+    <h3>Post Details</h3>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Title</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Title)</dd>
+        <dt class="col-sm-2">Post Content</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.PostContent)</dd>
+        <dt class="col-sm-2">Create Date</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.CreateDate)</dd>
+        <dt class="col-sm-2">Created by</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.User.Username)</dd>
+    </dl>
+    <h4>Comments Related to the post</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Comment</th>
+                <th>Create Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Comments)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.ContentComment)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CreateDate)</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PostId" class="btn btn-primary">Edit Post</a>
+    <input type="button" value="New Comment" onclick="location.href='@Url.Action("Create", "Comments")'" class="btn btn-secondary"/>
+    <a asp-action="Index" class="btn btn-info">Back to List</a>
+</div>
